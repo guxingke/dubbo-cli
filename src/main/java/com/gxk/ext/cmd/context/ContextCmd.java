@@ -1,5 +1,6 @@
 package com.gxk.ext.cmd.context;
 
+import com.gxk.ext.config.Context;
 import com.gxk.ext.config.UserConfig;
 import com.gxk.ext.core.CmdContext;
 import com.gxk.ext.core.CmdHandler;
@@ -54,6 +55,23 @@ public class ContextCmd implements CmdHandler {
       cfg.save(ctx.getSystemConfig().getConfigPath());
       return;
     }
+
+    if (option.isCp()) {
+      if (!ctxs.contains(option.getSource())) {
+        System.err.println(String.format("unknown context %s, all contexts %s", option.getSource(), ctxs));
+        return;
+      }
+
+      if (ctxs.contains(option.getContext())) {
+        System.err.println(String.format("context %s already exists, all contexts %s", option.getContext(), ctxs));
+        return;
+      }
+
+      Context sourceContext = cfg.getContexts().get(option.getSource());
+      cfg.getContexts().put(option.getContext(), sourceContext);
+      cfg.save(ctx.getSystemConfig().getConfigPath());
+      return;
+    }
   }
 
   private void printHelpMsg(CmdContext ctx) {
@@ -66,8 +84,9 @@ public class ContextCmd implements CmdHandler {
         "Context Options: " + ctxs,
         "",
         "USEAGE: ",
-        "context use xxxx",
-        "context rm xxxx"
+        "context use <ctx>",
+        "context rm <ctx>",
+        "context cp <source> <target>"
     );
 
     msges.forEach(System.out::println);

@@ -20,7 +20,9 @@ public class ContextOption implements CmdOption {
 
   private boolean use;
   private boolean rm;
+  private boolean cp;
 
+  private String source;
   private String context;
 
   @Override
@@ -30,26 +32,43 @@ public class ContextOption implements CmdOption {
       return;
     }
 
-    if (args.length > 2) {
-      System.out.println("illegal args");
-      help = true;
-      return;
+    if (args.length == 2) {
+      String arg = args[0];
+      String ctx = args[1];
+      switch (arg) {
+        case "use":
+          use = true;
+          context = ctx;
+          return;
+        case "rm":
+          rm = true;
+          context = ctx;
+          return;
+        default:
+          System.out.println("illegal args");
+          help = true;
+          return;
+      }
     }
 
-    String arg = args[0];
-    String ctx = args[1];
-    switch (arg) {
-      case "use":
-        use = true;
-        context = ctx;
-        return;
-      case "rm":
-        rm = true;
-        context = ctx;
-      default:
-        System.out.println("illegal args");
-        help = true;
-        return;
+    if (args.length == 3) {
+      String arg = args[0];
+      String source = args[1];
+      String target = args[2];
+
+      switch (arg) {
+        case "cp":
+          this.cp = true;
+          this.source = source;
+          this.context = target;
+          return;
+        default:
+          System.out.println("illegal args");
+          help = true;
+          return;
+      }
     }
+
+    help = true;
   }
 }

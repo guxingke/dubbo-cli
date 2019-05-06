@@ -84,16 +84,16 @@ public class EnvOption implements CmdOption {
             return;
           }
 
-          String hostVal = params.get("host");
+          String hostVal = params.get("--host");
           host = hostVal;
 
-          String portVal = params.get("port");
+          String portVal = params.get("--port");
           port = Integer.parseInt(portVal);
 
-          String linkVal = params.get("link");
+          String linkVal = params.get("--link");
           link = linkVal;
 
-          String charsetVal = params.get("charset");
+          String charsetVal = params.get("--charset");
           charset = charsetVal;
           return;
         default:

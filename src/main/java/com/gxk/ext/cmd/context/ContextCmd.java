@@ -7,7 +7,9 @@ import com.gxk.ext.core.CmdHandler;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ContextCmd implements CmdHandler {
 
   @Override
@@ -27,11 +29,11 @@ public class ContextCmd implements CmdHandler {
     String newCtx = option.getContext();
     if (option.isRm()) {
       if (active.equals(newCtx)) {
-        System.err.println(String.format("%s is active, can not be rm", active));
+        log.error(String.format("%s is active, can not be rm", active));
         return;
       }
       if (!ctxs.contains(newCtx)) {
-        System.err.println(String.format("unknown context %s, all contexts %s", newCtx, ctxs));
+        log.error(String.format("unknown context %s, all contexts %s", newCtx, ctxs));
         return;
       }
 
@@ -42,12 +44,12 @@ public class ContextCmd implements CmdHandler {
 
     if (option.isUse()) {
       if (active.equals(newCtx)) {
-        System.err.println(String.format("%s is already active", active));
+        log.error(String.format("%s is already active", active));
         return;
       }
 
       if (!ctxs.contains(newCtx)) {
-        System.err.println(String.format("unknown context %s, all contexts %s", newCtx, ctxs));
+        log.error(String.format("unknown context %s, all contexts %s", newCtx, ctxs));
         return;
       }
 
@@ -58,12 +60,12 @@ public class ContextCmd implements CmdHandler {
 
     if (option.isCp()) {
       if (!ctxs.contains(option.getSource())) {
-        System.err.println(String.format("unknown context %s, all contexts %s", option.getSource(), ctxs));
+        log.error(String.format("unknown context %s, all contexts %s", option.getSource(), ctxs));
         return;
       }
 
       if (ctxs.contains(option.getContext())) {
-        System.err.println(String.format("context %s already exists, all contexts %s", option.getContext(), ctxs));
+        log.error(String.format("context %s already exists, all contexts %s", option.getContext(), ctxs));
         return;
       }
 

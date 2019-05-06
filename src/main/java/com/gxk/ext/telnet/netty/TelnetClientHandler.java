@@ -41,7 +41,7 @@ public class TelnetClientHandler extends ChannelInboundHandlerAdapter {
 
   //    @Override
 //    public void channelRead(ChannelHandlerContext ctx, Objects msg) throws Exception {
-//        System.out.println(msg);
+//        log.info(msg);
 //        data += msg;
 //        promise.setSuccess();
 //    }

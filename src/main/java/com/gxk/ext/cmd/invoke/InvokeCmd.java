@@ -10,7 +10,9 @@ import com.gxk.ext.telnet.TelnetClientFactory;
 import com.gxk.ext.util.Utils;
 import java.util.Arrays;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class InvokeCmd implements CmdHandler {
 
   @Override
@@ -54,7 +56,7 @@ public class InvokeCmd implements CmdHandler {
     Context context = cfg.getContexts().get(cfg.getActive());
     Alias alias = context.getAliases().get(option.getAlias());
     if (alias == null) {
-      System.err.println("alias not found, available alias : " + context.getAliases().keySet());
+      log.error("alias not found, available alias : " + context.getAliases().keySet());
       return;
     }
     String tpl = alias.getTpl();
@@ -84,10 +86,10 @@ public class InvokeCmd implements CmdHandler {
     Context context = cfg.getContexts().get(cfg.getActive());
 
     context.getAliases().forEach((key, val) -> {
-      System.out.println("ALIAS:  " + key);
-      System.out.println("  TPL:  " + val.getTpl());
-      System.out.println(" ARGS:  " + val.getArgs());
-      System.out.println();
+      log.info("ALIAS:  " + key);
+      log.info("  TPL:  " + val.getTpl());
+      log.info(" ARGS:  " + val.getArgs());
+      log.info("");
     });
 
   }
@@ -134,11 +136,11 @@ public class InvokeCmd implements CmdHandler {
     int elapsed = ret.indexOf("elapsed");
     // not found
     if (elapsed < 0) {
-      System.out.println(ret);
+      log.info(ret);
       return;
     }
     // sub last \n
     String subStr = ret.substring(0, elapsed - 1);
-    System.out.println(subStr);
+    log.info(subStr);
   }
 }

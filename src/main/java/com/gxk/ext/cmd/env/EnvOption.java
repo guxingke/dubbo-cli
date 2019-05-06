@@ -4,6 +4,7 @@ import com.gxk.ext.cmd.CmdOption;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 /*
 
@@ -17,6 +18,7 @@ rm default
 set default --host=xxxxx --port=xxxx --link=xxx --charset=xxxx
  */
 @Data
+@Slf4j
 public class EnvOption implements CmdOption {
 
   private boolean help;
@@ -51,7 +53,7 @@ public class EnvOption implements CmdOption {
           rm = true;
           env = newEnv;
         default:
-          System.out.println("illegal args");
+          log.info("illegal args");
           help = true;
           return;
       }
@@ -70,7 +72,7 @@ public class EnvOption implements CmdOption {
             String temp = args[i];
             String[] split = temp.split("=");
             if (split.length != 2 || !split[0].startsWith("--")) {
-              System.out.println("illegal args");
+              log.info("illegal args");
               return;
             }
             String key = split[0];
@@ -80,7 +82,7 @@ public class EnvOption implements CmdOption {
           }
 
           if (params.size() != 4) {
-            System.out.println("illegal args");
+            log.info("illegal args");
             return;
           }
 
@@ -97,13 +99,13 @@ public class EnvOption implements CmdOption {
           charset = charsetVal;
           return;
         default:
-          System.out.println("illegal args");
+          log.info("illegal args");
           help = true;
           return;
       }
     }
 
-    System.out.println("illegal args");
+    log.info("illegal args");
     help = true;
     return;
   }

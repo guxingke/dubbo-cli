@@ -8,7 +8,9 @@ import com.gxk.ext.util.Utils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class LsCmd implements CmdHandler {
 
   @Override
@@ -23,7 +25,7 @@ public class LsCmd implements CmdHandler {
     }
 
     if (args.length > 1) {
-      System.err.println("illegal args");
+      log.error("illegal args");
       doHelp();
       return;
     }
@@ -39,7 +41,7 @@ public class LsCmd implements CmdHandler {
   private void doLsService(TelnetClient client, String service) {
     String cmd = String.format("ls %s", service);
     String ret = client.exec(cmd);
-    System.out.println(ret);
+    log.info(ret);
   }
 
   private void doHelp() {
@@ -54,6 +56,6 @@ public class LsCmd implements CmdHandler {
   }
 
   private void doLsAll(TelnetClient client) {
-    System.out.println(client.exec("ls"));
+    log.info(client.exec("ls"));
   }
 }

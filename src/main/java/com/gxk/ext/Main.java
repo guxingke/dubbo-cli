@@ -1,7 +1,8 @@
 package com.gxk.ext;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.gxk.ext.cmd.ConfigCmd;
+import com.gxk.ext.cmd.DeinitCmd;
+import com.gxk.ext.cmd.HelpCmd;
 import com.gxk.ext.cmd.InitCmd;
 import com.gxk.ext.cmd.invoke.InvokeCmd;
 import com.gxk.ext.cmd.LsCmd;
@@ -17,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -28,40 +30,44 @@ public class Main {
     CmdRegistry registry = new CmdRegistry();
     registry.reg("ls", new LsCmd());
     registry.reg("init", new InitCmd());
+    registry.reg("deinit", new DeinitCmd());
     registry.reg("invoke", new InvokeCmd());
     registry.reg(Arrays.asList("st", "status"), new StatusCmd());
     registry.reg(Arrays.asList("ctx", "context"), new ContextCmd());
     registry.reg("env", new EnvCmd());
-
-    registry.reg("help", ctx -> {
-      UserConfig config = ctx.getUserConfig();
-      Gson gson = new GsonBuilder().setPrettyPrinting().create();
-      String json = gson.toJson(config);
-      System.out.println(json);
+    registry.reg("help", new HelpCmd());
+    registry.reg("config", new ConfigCmd());
+    registry.reg("version", ctx -> {
+      log.info("0.1.0-SNAPSHOT");
     });
 
-    // check init
     Path configPath = Paths.get(home, Const.USER_CONFIG_FILE);
-    if (!Files.exists(configPath)) {
+
+    // check init
+    boolean needInit = needInit(args);
+    boolean init = Files.exists(configPath);
+    if (needInit && !init) {
       log.error("init first please.");
       System.exit(-2);
       return;
     }
 
-    SystemConfig systemConfig = new SystemConfig();
-    systemConfig.setConfigPath(configPath);
-
-    UserConfig userConfig = UserConfig.load(configPath);
-
     if (args.length == 0) {
       args = new String[]{"help"};
     }
     String cmd = args[0];
+    String[] newArgs = normalizeArgs(args);
 
     if (registry.get(cmd) == null) {
+      log.error("unknown cmd");
       System.exit(-1);
     }
 
+    CmdContext ctx = initCmdContext(configPath, cmd, newArgs);
+    registry.get(cmd).apply(ctx);
+  }
+
+  private static String[] normalizeArgs(String[] args) {
     String[] newArgs;
     if (args.length == 1) {
       newArgs = new String[0];
@@ -69,8 +75,34 @@ public class Main {
       newArgs = new String[args.length - 1];
       System.arraycopy(args, 1, newArgs, 0, args.length - 1);
     }
+    return newArgs;
+  }
 
-    CmdContext ctx = new CmdContext(systemConfig, userConfig, newArgs);
-    registry.get(cmd).apply(ctx);
+  private static CmdContext initCmdContext(Path configPath, String cmd, String[] args) {
+    SystemConfig systemConfig = new SystemConfig();
+    systemConfig.setConfigPath(configPath);
+
+    UserConfig userConfig = null;
+    if (needInit(cmd)) {
+      userConfig = UserConfig.load(configPath);
+    }
+    return new CmdContext(systemConfig, userConfig, args);
+  }
+
+  private static boolean needInit(String[] cmds) {
+    if (cmds.length == 0) {
+      return false;
+    }
+    String cmd = cmds[0];
+    return needInit(cmd);
+  }
+
+  private static boolean needInit(String cmd) {
+    List<String> ret = Arrays.asList(
+        "init",
+        "help",
+        "version"
+    );
+    return !ret.contains(cmd);
   }
 }

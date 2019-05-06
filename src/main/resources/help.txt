@@ -1,0 +1,16 @@
+Example usage:
+  dubbo init // init base cfg
+  dubbo deinit // reverse init , for re init or uninstall
+  dubbo ls [Service] // show dubbo service or service detail
+  dubbo status(st) // show active context, env.
+  dubbo context(ctx) <subcmd> [args] // context operation
+  dubbo env <subcmd> [args] // context operation
+  dubbo invoke // call rpc or call alias rpc
+
+Troubleshooting:
+  dubbo config // show cfg
+
+Further help:
+  dubbo cmd help
+  dubbo version
+  https://www.guxingke.com

@@ -8,7 +8,9 @@ import com.gxk.ext.core.CmdHandler;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class EnvCmd implements CmdHandler {
 
   @Override
@@ -30,11 +32,11 @@ public class EnvCmd implements CmdHandler {
     String newEnv = option.getEnv();
     if (option.isRm()) {
       if (active.equals(newEnv)) {
-        System.err.println(String.format("%s is active, can not be rm", active));
+        log.error(String.format("%s is active, can not be rm", active));
         return;
       }
       if (!envs.contains(newEnv)) {
-        System.err.println(String.format("unknown env %s, all envs %s", newEnv, envs));
+        log.error(String.format("unknown env %s, all envs %s", newEnv, envs));
         return;
       }
 
@@ -45,12 +47,12 @@ public class EnvCmd implements CmdHandler {
 
     if (option.isUse()) {
       if (active.equals(newEnv)) {
-        System.err.println(String.format("%s is already active", active));
+        log.error(String.format("%s is already active", active));
         return;
       }
 
       if (!envs.contains(newEnv)) {
-        System.err.println(String.format("unknown env %s, all envs %s", newEnv, envs));
+        log.error(String.format("unknown env %s, all envs %s", newEnv, envs));
         return;
       }
 

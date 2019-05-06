@@ -1,16 +1,14 @@
 package com.gxk.ext.cmd;
 
-import com.gxk.ext.config.UserConfig;
 import com.gxk.ext.config.Context;
 import com.gxk.ext.config.Env;
+import com.gxk.ext.config.UserConfig;
 import com.gxk.ext.constants.Const;
 import com.gxk.ext.core.CmdContext;
 import com.gxk.ext.core.CmdHandler;
-import com.moandjiezana.toml.TomlWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -27,19 +25,14 @@ public class InitCmd implements CmdHandler {
       return;
     }
 
-    String homeDir = System.getProperty("user.home");
-    String defaultCfgDir = homeDir + "/.dubbo-cli/userConfig";
-
-    String fileName = "dubbo.toml";
-
-    Path path = Paths.get(defaultCfgDir, fileName);
+    Path path = ctx.getSystemConfig().getConfigPath();
     if (path.toFile().exists()) {
       log.info("already init. nothing to do.");
       return;
     }
 
     try {
-      Files.createDirectories(Paths.get(defaultCfgDir));
+      Files.createDirectories(path.getParent());
     } catch (IOException e) {
       log.error("cmd err", e);
     }

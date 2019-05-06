@@ -5,7 +5,9 @@ import com.gxk.ext.config.Env;
 import com.gxk.ext.config.UserConfig;
 import com.gxk.ext.core.CmdContext;
 import com.gxk.ext.core.CmdHandler;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class StatusCmd implements CmdHandler {
 
   @Override
@@ -17,8 +19,8 @@ public class StatusCmd implements CmdHandler {
     String activeEnv = context.getActive();
     Env env = context.getEnvs().get(context.getActive());
 
-    System.out.println("Active Context: " + activeContext);
-    System.out.println("Active Env: " + activeEnv);
-    System.out.println("Env Detail: " + env);
+    log.info("Active Context: " + activeContext);
+    log.info("Active Env: " + activeEnv);
+    log.info("Env Detail: " + env);
   }
 }

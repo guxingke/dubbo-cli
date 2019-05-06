@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 native-image -cp target/dubbo-cli.jar \
-  -H:Name=dubbo-cli \
+  -H:Name=target/dubbo \
+  -H:IncludeResources='help.txt' \
   -H:ReflectionConfigurationFiles=reflection.json \
   -H:+ReportUnsupportedElementsAtRuntime \
   -H:+AddAllCharsets \

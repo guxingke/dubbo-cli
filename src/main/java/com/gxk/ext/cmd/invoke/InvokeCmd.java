@@ -130,6 +130,15 @@ public class InvokeCmd implements CmdHandler {
 
     String cmd2 = String.format("invoke %s", cmd);
     String ret = client.exec(cmd2);
-    System.out.println(ret);
+
+    int elapsed = ret.indexOf("elapsed");
+    // not found
+    if (elapsed < 0) {
+      System.out.println(ret);
+      return;
+    }
+    // sub last \n
+    String subStr = ret.substring(0, elapsed - 1);
+    System.out.println(subStr);
   }
 }

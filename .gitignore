@@ -3,3 +3,6 @@ target/
 .fj
 
 dependency-reduced-pom.xml
+
+*.iml
+dubbo-cli

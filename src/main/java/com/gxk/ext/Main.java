@@ -14,15 +14,16 @@ import com.gxk.ext.config.UserConfig;
 import com.gxk.ext.constants.Const;
 import com.gxk.ext.core.CmdContext;
 import com.gxk.ext.core.CmdRegistry;
+import com.gxk.ext.logger.Log;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class Main {
+
+  private static final Log log = new Log();
 
   public static void main(String[] args) {
     String home = System.getProperty("user.home");

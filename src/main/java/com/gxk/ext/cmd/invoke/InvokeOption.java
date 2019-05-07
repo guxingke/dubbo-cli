@@ -4,7 +4,6 @@ import com.gxk.ext.cmd.CmdOption;
 import java.util.Arrays;
 import java.util.Objects;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 /*
 help
@@ -26,7 +25,6 @@ f1 "test" true
 
  */
 @Data
-@Slf4j
 public class InvokeOption implements CmdOption {
 
   private boolean help;

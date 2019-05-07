@@ -2,7 +2,6 @@ package com.gxk.ext.cmd.context;
 
 import com.gxk.ext.cmd.CmdOption;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 /*
 
@@ -15,8 +14,9 @@ rm default
 
  */
 @Data
-@Slf4j
 public class ContextOption implements CmdOption {
+  private boolean parseError;
+  private String msg;
 
   private boolean help;
 
@@ -47,7 +47,8 @@ public class ContextOption implements CmdOption {
           context = ctx;
           return;
         default:
-          log.info("illegal args");
+          parseError = true;
+          msg = "illegal args";
           help = true;
           return;
       }
@@ -65,7 +66,8 @@ public class ContextOption implements CmdOption {
           this.context = target;
           return;
         default:
-          log.info("illegal args");
+          parseError = true;
+          msg = "illegal args";
           help = true;
           return;
       }

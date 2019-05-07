@@ -1,12 +1,5 @@
 [
   {
-    "name": "org.slf4j.impl.StaticLoggerBinder",
-    "allDeclaredFields": true,
-    "allPublicFields": true,
-    "allDeclaredMethods": true,
-    "allPublicMethods": true
-  },
-  {
     "name": "com.gxk.ext.config.SystemConfig",
     "allDeclaredFields": true,
     "allPublicFields": true,

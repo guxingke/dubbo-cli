@@ -5,9 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.gxk.ext.config.UserConfig;
 import com.gxk.ext.core.CmdContext;
 import com.gxk.ext.core.CmdHandler;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class ConfigCmd implements CmdHandler {
 
   @Override

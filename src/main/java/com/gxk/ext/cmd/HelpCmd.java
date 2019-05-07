@@ -5,9 +5,7 @@ import com.gxk.ext.core.CmdHandler;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class HelpCmd implements CmdHandler {
 
   @Override

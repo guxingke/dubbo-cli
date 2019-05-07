@@ -95,19 +95,45 @@ dubbo invoke f1 20
 # out
 {"id":"20","msg":"xx"}
 
+# 命令用法参考 dubbo <cmd> help, 
+# e.g
+# in
+dubbo invoke help
+# out
+dubbo telnet invoke wrapper
+
+USAGE:
+- test call
+test <service>.<method>(<args>)
+
+- alias call
+ls                                 # list all alias
+<alias> <arg1> <arg2>              # e.g f1 "test" true
+set <alias> <tpl> <default args>   # e.g set f1 test.HelloService.hello("{}", {}) test,true
+rm <alias>                         # e.g rm f1
+
 ```
 
 # 支持版本
-dubbox 2.8.4
-dubbo 2.5.3
-dubbo 2.7.1
+- dubbox 2.8.4
+- dubbo 2.7.1
 
 # 限制
 ## 某些 dubbo 版本不支持, 已知 2.7.0 不支持
 ## 仅支持 Unix*
 
-## 开发
-### 环境
+# 概念
+## context
+上下文, 对应多个 dubbo provider
+
+## env
+环境, 同一个 context 下多个环境, 可对应不同的应用实例, e.g local, test, beta...
+
+## invoke alias
+别名, 用来快速调用, 支持默认值, 和传参替换, 模板预发使用 slf4j 日志格式, e.g "xxx: {}"
+
+# 开发
+## 环境
 - maven 3.3+
 - jdk 1.8+
 - graalvm 1.0+

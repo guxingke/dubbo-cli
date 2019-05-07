@@ -10,9 +10,7 @@ import com.gxk.ext.telnet.TelnetClientFactory;
 import com.gxk.ext.util.Utils;
 import java.util.Arrays;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class InvokeCmd implements CmdHandler {
 
   @Override
@@ -133,14 +131,18 @@ public class InvokeCmd implements CmdHandler {
     String cmd2 = String.format("invoke %s", cmd);
     String ret = client.exec(cmd2);
 
-    int elapsed = ret.indexOf("elapsed");
-    // not found
-    if (elapsed < 0) {
-      log.info(ret);
-      return;
+    String[] lines = ret.split("\n");
+
+    String result = "{}";
+    // old version, 2.7.0 earlier
+    if (lines.length == 2) {
+      result = lines[0];
     }
-    // sub last \n
-    String subStr = ret.substring(0, elapsed - 1);
-    log.info(subStr);
+
+    if (lines.length == 3) {
+      result = lines[1].substring(8);
+    }
+
+    log.info(result);
   }
 }

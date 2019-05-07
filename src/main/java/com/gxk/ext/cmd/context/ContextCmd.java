@@ -7,15 +7,18 @@ import com.gxk.ext.core.CmdHandler;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class ContextCmd implements CmdHandler {
 
   @Override
   public void apply(CmdContext ctx) {
     ContextOption option = new ContextOption();
     option.parseArgs(ctx.getArgs());
+
+    if (option.isParseError()) {
+      log.error(option.getMsg());
+      return;
+    }
 
     if (option.isHelp()) {
       printHelpMsg(ctx);

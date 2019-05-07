@@ -4,7 +4,6 @@ import com.gxk.ext.cmd.CmdOption;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 /*
 
@@ -18,8 +17,9 @@ rm default
 set default --host=xxxxx --port=xxxx --link=xxx --charset=xxxx
  */
 @Data
-@Slf4j
 public class EnvOption implements CmdOption {
+  private boolean parseError;
+  private String msg;
 
   private boolean help;
 
@@ -53,7 +53,8 @@ public class EnvOption implements CmdOption {
           rm = true;
           env = newEnv;
         default:
-          log.info("illegal args");
+          parseError = true;
+          msg = "illegal args";
           help = true;
           return;
       }
@@ -72,7 +73,8 @@ public class EnvOption implements CmdOption {
             String temp = args[i];
             String[] split = temp.split("=");
             if (split.length != 2 || !split[0].startsWith("--")) {
-              log.info("illegal args");
+              parseError = true;
+              msg = "illegal args";
               return;
             }
             String key = split[0];
@@ -82,7 +84,8 @@ public class EnvOption implements CmdOption {
           }
 
           if (params.size() != 4) {
-            log.info("illegal args");
+            parseError = true;
+            msg = "illegal args";
             return;
           }
 
@@ -99,13 +102,15 @@ public class EnvOption implements CmdOption {
           charset = charsetVal;
           return;
         default:
-          log.info("illegal args");
+          parseError = true;
+          msg = "illegal args";
           help = true;
           return;
       }
     }
 
-    log.info("illegal args");
+    parseError = true;
+    msg = "illegal args";
     help = true;
     return;
   }

@@ -1,16 +1,17 @@
 package com.gxk.ext.config;
 
+import com.gxk.ext.logger.Log;
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 @Data
-@Slf4j
 public class UserConfig {
+
+  private static final Log log = new Log();
 
   private String active = "default";
   private Map<String, Context> contexts;

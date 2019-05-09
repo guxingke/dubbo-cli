@@ -10,5 +10,5 @@ public class TelnetConfig {
   private String host;
   private int port;
   private String charset;
-  private String impl;
+  private String transport;
 }

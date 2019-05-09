@@ -13,4 +13,6 @@ public class Env {
   private int port;
   private String link;
   private String charset;
+  // support cnet (commons net provider), netty (netty provider)
+  private String transport = "cnet";
 }

@@ -45,7 +45,7 @@ public class InitCmd implements CmdHandler {
     Context defaultContext = new Context();
 
     Map<String, Env> defaultEnvs = new LinkedHashMap<>();
-    defaultEnvs.put("local", new Env("127.0.0.1", 20880, Const.LINK_TELNET, Const.CHARSET_GBK));
+    defaultEnvs.put("local", new Env("127.0.0.1", 20880, Const.LINK_TELNET, Const.CHARSET_GBK, Const.TRANSPORT_CNET));
     defaultContext.setEnvs(defaultEnvs);
     defaultContext.setActive("local");
 
@@ -53,8 +53,8 @@ public class InitCmd implements CmdHandler {
 
     Context testCtx = new Context();
     Map<String, Env> tes = new LinkedHashMap<>();
-    tes.put("local", new Env("127.0.0.1", 31015, Const.LINK_TELNET, Const.CHARSET_GBK));
-    tes.put("beta", new Env("10.1.2.51", 31015, Const.LINK_TELNET, Const.CHARSET_GBK));
+    tes.put("local", new Env("127.0.0.1", 31015, Const.LINK_TELNET, Const.CHARSET_GBK, Const.TRANSPORT_CNET));
+    tes.put("beta", new Env("10.1.2.51", 31015, Const.LINK_TELNET, Const.CHARSET_GBK, Const.TRANSPORT_CNET));
     testCtx.setEnvs(tes);
     testCtx.setActive("local");
     ctxs.put("test", testCtx);

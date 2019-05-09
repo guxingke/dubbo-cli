@@ -18,7 +18,7 @@ public class MainTest {
 
   @Test
   public void test() {
-    FormattingTuple tuple = MessageFormatter.arrayFormat("{} {} sdfa{}", new Object[]{"xxxxxxx", 1 , 2});
+    FormattingTuple tuple = MessageFormatter.arrayFormat("{} {} sdfa{}", new Object[]{"xxxxxxx", 1, 2});
     String message = tuple.getMessage();
     assertTrue(message.contains("xxxxxxx"));
     assertTrue(main != null);

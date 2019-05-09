@@ -14,10 +14,11 @@ use beta
 
 rm default
 
-set default --host=xxxxx --port=xxxx --link=xxx --charset=xxxx
+set default --host=xxxxx --port=xxxx --link=xxx --charset=xxxx --transport=xxx
  */
 @Data
 public class EnvOption implements CmdOption {
+
   private boolean parseError;
   private String msg;
 
@@ -33,6 +34,7 @@ public class EnvOption implements CmdOption {
   private int port;
   private String link;
   private String charset;
+  private String transport = "cnet";
 
   @Override
   public void parseArgs(String... args) {
@@ -60,7 +62,7 @@ public class EnvOption implements CmdOption {
       }
     }
 
-    if (args.length == 6) {
+    if (args.length == 7) {
       String arg = args[0];
       String newEnv = args[1];
       switch (arg) {
@@ -83,7 +85,7 @@ public class EnvOption implements CmdOption {
             params.put(key, val);
           }
 
-          if (params.size() != 4) {
+          if (params.size() != 5) {
             parseError = true;
             msg = "illegal args";
             return;
@@ -100,6 +102,10 @@ public class EnvOption implements CmdOption {
 
           String charsetVal = params.get("--charset");
           charset = charsetVal;
+
+          String tsVal = params.get("--transport");
+          transport= tsVal;
+
           return;
         default:
           parseError = true;

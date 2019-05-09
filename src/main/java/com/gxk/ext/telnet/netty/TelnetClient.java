@@ -41,7 +41,13 @@ public class TelnetClient implements com.gxk.ext.telnet.TelnetClient {
       ChannelPromise promise = handler.send(cmd + "\r\n");
 
       promise.await();
-      return handler.getData();
+
+      ch.disconnect();
+
+      String str = handler.getData();
+      str = str.substring(0, str.length() - 7);
+      return str;
+
     } catch (Exception e) {
       return "";
     } finally {

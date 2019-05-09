@@ -1,5 +1,18 @@
 [
   {
+    "name": "io.netty.channel.socket.nio.NioSocketChannel",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ],
+    "allDeclaredFields": true,
+    "allPublicFields": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
     "name": "com.gxk.ext.config.SystemConfig",
     "allDeclaredFields": true,
     "allPublicFields": true,

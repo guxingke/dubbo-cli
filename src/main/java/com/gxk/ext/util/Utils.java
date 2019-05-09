@@ -66,7 +66,7 @@ public abstract class Utils {
         .host(env.getHost())
         .port(env.getPort())
         .charset(env.getCharset())
-        .impl("cnet")
+        .transport(env.getTransport())
         .build();
   }
 

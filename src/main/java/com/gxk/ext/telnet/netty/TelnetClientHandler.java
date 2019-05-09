@@ -4,7 +4,6 @@ import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelPromise;
-import java.util.Objects;
 
 @Sharable
 public class TelnetClientHandler extends ChannelInboundHandlerAdapter {
@@ -31,20 +30,11 @@ public class TelnetClientHandler extends ChannelInboundHandlerAdapter {
 
   @Override
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-    byte[] bytes = (byte[]) msg;
-    String mm = new String(bytes);
-    data += mm;
-    if (mm.endsWith("dubbo>")) {
+    if (((String) msg).endsWith("dubbo>")) {
+      this.data = (String) msg;
       promise.setSuccess();
     }
   }
-
-  //    @Override
-//    public void channelRead(ChannelHandlerContext ctx, Objects msg) throws Exception {
-//        log.info(msg);
-//        data += msg;
-//        promise.setSuccess();
-//    }
 
   @Override
   public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {

@@ -17,7 +17,7 @@
 # 快速开始
 ## 安装
 ```bash
-brew tap guxingke/repo && brew install dubbo-cli
+brew tap guxingke/repo && brew install dubbo
 ```
 
 ## 示例

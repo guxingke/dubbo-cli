@@ -3,6 +3,7 @@
 native-image -cp target/dubbo-cli.jar \
   -H:Name=target/dubbo \
   -H:IncludeResources='help.txt' \
+  --allow-incomplete-classpath \
   -H:ReflectionConfigurationFiles=reflection.json \
   -H:+ReportUnsupportedElementsAtRuntime \
   -H:+AddAllCharsets \
